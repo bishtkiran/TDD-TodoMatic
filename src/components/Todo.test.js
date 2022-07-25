@@ -3,14 +3,20 @@ import Todo from "./Todo";
 
 describe("Basic rendering of a Todo task", () => {
     it("Should render checkbox for the task", () => {
-        const getById = render(<Todo />);
+        const completed = true;
+        const name = "Java";
+        const id = "todo-0";
+        const getById = render(<Todo name={name} completed={completed} id={id}/>);
         const firstTask = getById.container.querySelector('#todo-0');
         expect(firstTask).toBeInTheDocument();
         expect(firstTask).toBeChecked();
     });
 
     it("Should render label for the task", () => {
-        const getByClass = render(<Todo />);
+        const completed = true;
+        const name = "Java";
+        const id = "todo-0";
+        const getByClass = render(<Todo name={name} completed={completed} id={id} />);
         const labelText = getByClass.container.querySelector('.todo-label');
         expect(labelText).toBeInTheDocument();
     });
