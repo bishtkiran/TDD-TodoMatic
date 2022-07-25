@@ -10,8 +10,14 @@ describe("Basic rendering of a Todo task", () => {
     });
 
     it("Should render label for the task", () => {
-        const {getByText} = render(<Todo />);
-        const labelText = getByText("Java");
+        const getByClass = render(<Todo />);
+        const labelText = getByClass.container.querySelector('.todo-label');
         expect(labelText).toBeInTheDocument();
-    })
+    });
+
+    it("Should render Edit button for task", () => {
+        const getByClass = render(<Todo />);
+        const editBtn = getByClass.container.querySelector('.btn')
+        expect(editBtn).toBeInTheDocument();
+    });
 })

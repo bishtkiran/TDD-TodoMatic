@@ -7,6 +7,11 @@ function Todo() {
                 <input id="todo-0" type="checkbox" defaultChecked={true} />
                 <label className="todo-label" htmlFor="todo-0">Java</label>
             </div>
+            <div className="btn-group">
+                <button type="button" className="btn">
+                    Edit <span className="visually-hidden">Java</span>
+                </button>
+            </div>
         </li>
     );
 }
