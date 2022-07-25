@@ -1,7 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('check', () => {
-  expect(true).toBeTruthy();
+describe('Rendering title for TodoMatic', () => {
+ it("Should render todomatic title",() => {
+  const {getByText} = render(<App />);
+  const title = getByText("TodoMatic");
+  expect(title).toBeInTheDocument();
+
+ })
 
 });
