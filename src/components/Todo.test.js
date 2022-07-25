@@ -20,4 +20,10 @@ describe("Basic rendering of a Todo task", () => {
         const editBtn = getByClass.container.querySelector('.btn')
         expect(editBtn).toBeInTheDocument();
     });
+
+    it("Should render Delete button for task", () => {
+        const getByClass = render(<Todo />);
+        const deleteBtn = getByClass.container.querySelector('.btn__danger')
+        expect(deleteBtn).toBeInTheDocument();
+    });
 })

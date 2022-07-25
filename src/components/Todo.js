@@ -11,6 +11,9 @@ function Todo() {
                 <button type="button" className="btn">
                     Edit <span className="visually-hidden">Java</span>
                 </button>
+                <button type="button" className="btn__danger">
+                    Delete <span className="visually-hidden">Eat</span>
+                </button>
             </div>
         </li>
     );
