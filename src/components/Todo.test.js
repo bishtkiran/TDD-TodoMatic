@@ -8,4 +8,10 @@ describe("Basic rendering of a Todo task", () => {
         expect(firstTask).toBeInTheDocument();
         expect(firstTask).toBeChecked();
     });
+
+    it("Should render label for the task", () => {
+        const {getByText} = render(<Todo />);
+        const labelText = getByText("Java");
+        expect(labelText).toBeInTheDocument();
+    })
 })
