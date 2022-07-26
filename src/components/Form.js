@@ -14,7 +14,10 @@ function Form() {
         className="input input__lg"
         name="text"
         autoComplete="off"
-      />  
+      />
+      <button type="submit" className="btn btn__primary btn__lg">
+        Add
+      </button>  
     </form>
   )
 }

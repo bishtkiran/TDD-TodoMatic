@@ -13,4 +13,12 @@ describe("Basic rendering of Form", () => {
         expect(inputField).toBeInTheDocument();
         expect(inputField.value).toEqual('');
     });
+
+    it("Should render add button to add new task", () => {
+        const {getByText} = render(<Form />);
+        const addBtn = getByText("Add");
+        expect(addBtn).toBeInTheDocument();
+        expect(addBtn).not.toBeDisabled();
+
+    })
 })
