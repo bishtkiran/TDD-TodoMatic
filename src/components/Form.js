@@ -7,7 +7,14 @@ function Form() {
         <label htmlFor="new-todo-input" className="label__lg">
           What needs to be done?
         </label>
-      </h2>     
+      </h2>   
+      <input
+        type="text"
+        id="new-todo-input"
+        className="input input__lg"
+        name="text"
+        autoComplete="off"
+      />  
     </form>
   )
 }
