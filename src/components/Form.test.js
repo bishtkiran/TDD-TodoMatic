@@ -30,6 +30,22 @@ describe("Basic rendering of Form", () => {
       const addBtn = getByRole('button');
       fireEvent.click(addBtn);
       expect(mockedAddTask).not.toHaveBeenCalled();
-    });        
+    });
+    
+    test("Form submission should add a new todo task successfully", () => {
+      const mockedAddTask = jest.fn();
+      const { getByRole } = render(<Form addTask={mockedAddTask} />);
+      const input = getByRole('textbox');
+      const addBtn = getByRole('button');
+    
+      fireEvent.change(input, { target: { value: "Spring" } });
+      fireEvent.click(addBtn);
+    
+      expect(mockedAddTask).toHaveBeenCalledTimes(1);
+      expect(mockedAddTask).toHaveBeenCalledWith("Spring");
+    
+      expect(input).toHaveValue("");
+
+    }); 
     
 });
