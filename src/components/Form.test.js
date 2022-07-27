@@ -1,5 +1,8 @@
-import {render} from "@testing-library/react";
+import {render, fireEvent, user, getByRole} from "@testing-library/react";
+import { act } from 'react-dom/test-utils'
+import { useReducer } from "react";
 import Form from "./Form";
+
 describe("Basic rendering of Form", () => {
     it("Should render heading for the form", () =>{
         const {getByText} = render(<Form />);
@@ -19,6 +22,14 @@ describe("Basic rendering of Form", () => {
         const addBtn = getByText("Add");
         expect(addBtn).toBeInTheDocument();
         expect(addBtn).not.toBeDisabled();
+    });
 
-    })
-})
+    test("Form submission should not call addTask method if input field is empty", () => {
+      const mockedAddTask = jest.fn() 
+      const {getByRole} = render(<Form add={mockedAddTask} />); 
+      const addBtn = getByRole('button');
+      fireEvent.click(addBtn);
+      expect(mockedAddTask).not.toHaveBeenCalled();
+    });        
+    
+});
