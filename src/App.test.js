@@ -1,6 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
+
+jest.mock("nanoid", () => ({
+  nanoid: () => "todo-1",
+}));
+
 describe('Rendering title for TodoMatic', () => {
  it("Should render todomatic title",() => {
     const DATA =[{ id: "todo-0", name: "Eat", completed: true },
