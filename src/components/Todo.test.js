@@ -49,6 +49,16 @@ describe("Basic rendering of a Todo task", () => {
         expect(toggleTaskCompleted).toHaveBeenCalledTimes(1);
         
       });
+
+      it("Should delete a todo task on click of delete button", () => {
+        const mockedDeleteTask = jest.fn();
+        const {getByText} = render(<Todo deleteTask={mockedDeleteTask} />);
+        const deleteBtn = getByText(/Delete/i);
+
+        fireEvent.click(deleteBtn);
+
+        expect(mockedDeleteTask).toBeCalledTimes(1);        
+      })
     
      
 
