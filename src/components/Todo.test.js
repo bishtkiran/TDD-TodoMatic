@@ -1,5 +1,12 @@
-import { render, querySelector } from "@testing-library/react";
+import { render, querySelector, fireEvent, getByRole } from "@testing-library/react";
 import Todo from "./Todo";
+
+const mockedTodo = {
+    id: "todo-1",
+    content: "Javascript",
+    completed: false,
+  };
+  
 
 describe("Basic rendering of a Todo task", () => {
     it("Should render checkbox for the task", () => {
@@ -32,4 +39,18 @@ describe("Basic rendering of a Todo task", () => {
         const deleteBtn = getByClass.container.querySelector('.btn__danger')
         expect(deleteBtn).toBeInTheDocument();
     });
+
+    test("Should mark todo task to be completed on checkbox click", () => {
+        const toggleTaskCompleted = jest.fn();
+        const {getByRole} = render(<Todo toggleTaskCompleted={toggleTaskCompleted}/>)
+        const checkbox = getByRole('checkbox');
+       
+        fireEvent.click(checkbox);    
+        expect(toggleTaskCompleted).toHaveBeenCalledTimes(1);
+        
+      });
+    
+     
+
+   
 })
