@@ -1,12 +1,11 @@
 import { render, querySelector, fireEvent, getByRole } from "@testing-library/react";
 import Todo from "./Todo";
 
-const mockedTodo = {
-    id: "todo-1",
-    content: "Javascript",
-    completed: false,
-  };
-  
+const mockedTask = {
+    id: "todo-0",
+    content: "Java",
+    completed: true,
+  };  
 
 describe("Basic rendering of a Todo task", () => {
     it("Should render checkbox for the task", () => {
@@ -42,22 +41,27 @@ describe("Basic rendering of a Todo task", () => {
 
     test("Should mark todo task to be completed on checkbox click", () => {
         const toggleTaskCompleted = jest.fn();
-        const {getByRole} = render(<Todo toggleTaskCompleted={toggleTaskCompleted}/>)
+        const taskId = "todo-1";
+        const {getByRole} = render(<Todo mockedTask={mockedTask} id={taskId}toggleTaskCompleted={toggleTaskCompleted}/>)
         const checkbox = getByRole('checkbox');
        
         fireEvent.click(checkbox);    
         expect(toggleTaskCompleted).toHaveBeenCalledTimes(1);
+        expect(toggleTaskCompleted).toBeCalledWith(taskId);
         
       });
 
       it("Should delete a todo task on click of delete button", () => {
         const mockedDeleteTask = jest.fn();
-        const {getByText} = render(<Todo deleteTask={mockedDeleteTask} />);
+        const taskId = "todo-3";
+        const {getByText, debug} = render(<Todo mockedTask={mockedTask} id={taskId}deleteTask={mockedDeleteTask} />);
         const deleteBtn = getByText(/Delete/i);
+        debug();
 
         fireEvent.click(deleteBtn);
 
-        expect(mockedDeleteTask).toBeCalledTimes(1);        
+        expect(mockedDeleteTask).toBeCalledTimes(1);  
+        expect(mockedDeleteTask).toBeCalledWith(taskId);      
       })
     
      
