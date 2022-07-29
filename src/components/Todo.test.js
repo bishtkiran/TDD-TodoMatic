@@ -56,7 +56,6 @@ describe("Basic rendering of a Todo task", () => {
         const deleteBtn = getByText(/Delete/i);        
 
         fireEvent.click(deleteBtn);
-
         expect(mockedDeleteTask).toBeCalledTimes(1);  
         expect(mockedDeleteTask).toBeCalledWith(mockedTask.id);      
       })     
@@ -82,13 +81,11 @@ describe("Basic rendering of a Todo task", () => {
                 
         const editBtn = getByText(/Edit/i)
         fireEvent.click(editBtn);
-
         const input = getByTestId('new-name')
         const saveBtn = getByText(/Save/i)        
 
         fireEvent.change(input, {target: {value: newName}})
         fireEvent.click(saveBtn);
-
         expect(mockedEditTask).toBeCalledTimes(1);
         expect(mockedEditTask).toBeCalledWith(mockedTask.id, newName);        
       })   

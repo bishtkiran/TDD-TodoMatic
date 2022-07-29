@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-
 jest.mock("nanoid", () => ({
   nanoid: () => "todo-1",
 }));

@@ -24,7 +24,7 @@ describe("Basic rendering of Form", () => {
         expect(addBtn).not.toBeDisabled();
     });
 
-    test("Form submission should not call addTask method if input field is empty", () => {
+    it("Form submission should not call addTask method if input field is empty", () => {
       const mockedAddTask = jest.fn() 
       const {getByRole} = render(<Form add={mockedAddTask} />); 
       const addBtn = getByRole('button');
@@ -32,18 +32,16 @@ describe("Basic rendering of Form", () => {
       expect(mockedAddTask).not.toHaveBeenCalled();
     });
     
-    test("Form submission should add a new todo task successfully", () => {
+    it("Form submission should add a new todo task successfully", () => {
       const mockedAddTask = jest.fn();
       const { getByRole } = render(<Form addTask={mockedAddTask} />);
       const input = getByRole('textbox');
       const addBtn = getByRole('button');
     
       fireEvent.change(input, { target: { value: "Spring" } });
-      fireEvent.click(addBtn);
-    
+      fireEvent.click(addBtn);    
       expect(mockedAddTask).toHaveBeenCalledTimes(1);
-      expect(mockedAddTask).toHaveBeenCalledWith("Spring");
-    
+      expect(mockedAddTask).toHaveBeenCalledWith("Spring");    
       expect(input).toHaveValue("");
 
     }); 
