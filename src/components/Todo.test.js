@@ -39,30 +39,40 @@ describe("Basic rendering of a Todo task", () => {
         expect(deleteBtn).toBeInTheDocument();
     });
 
-    test("Should mark todo task to be completed on checkbox click", () => {
+    it("Should mark todo task to be completed on checkbox click", () => {
         const toggleTaskCompleted = jest.fn();
-        const taskId = "todo-1";
-        const {getByRole} = render(<Todo mockedTask={mockedTask} id={taskId}toggleTaskCompleted={toggleTaskCompleted}/>)
+        const {getByRole} = render(<Todo id={mockedTask.id}toggleTaskCompleted={toggleTaskCompleted}/>)
         const checkbox = getByRole('checkbox');
        
         fireEvent.click(checkbox);    
         expect(toggleTaskCompleted).toHaveBeenCalledTimes(1);
-        expect(toggleTaskCompleted).toBeCalledWith(taskId);
+        expect(toggleTaskCompleted).toBeCalledWith(mockedTask.id);
         
       });
 
       it("Should delete a todo task on click of delete button", () => {
         const mockedDeleteTask = jest.fn();
-        const taskId = "todo-3";
-        const {getByText, debug} = render(<Todo mockedTask={mockedTask} id={taskId}deleteTask={mockedDeleteTask} />);
+        const {getByText, debug} = render(<Todo id={mockedTask.id} deleteTask={mockedDeleteTask} />);
         const deleteBtn = getByText(/Delete/i);
         debug();
 
         fireEvent.click(deleteBtn);
 
         expect(mockedDeleteTask).toBeCalledTimes(1);  
-        expect(mockedDeleteTask).toBeCalledWith(taskId);      
+        expect(mockedDeleteTask).toBeCalledWith(mockedTask.id);      
       })
+
+      it("Should set editing template to true on click of edit Button", () => {
+        const mockedSetEditing = jest.fn();
+        const {getByText,debug} = render(<Todo />)        
+        const editBtn = getByText(/Edit/i);
+        fireEvent.click(editBtn);
+        debug();
+
+        expect(mockedSetEditing).toBeTruthy();       
+               
+      })
+      
     
      
 
