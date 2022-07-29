@@ -73,5 +73,23 @@ describe("Basic rendering of a Todo task", () => {
         expect(input).toBeInTheDocument();
         expect(saveBtn).toBeInTheDocument();
         expect(cancelBtn).toBeInTheDocument();
+      })
+
+      it("Should change the name for the given task on click of save button", ()=>{
+        const mockedEditTask = jest.fn();
+        const newName="Angular"
+        const {getByText, getByTestId} = render(<Todo mockedTask={mockedTask} id={mockedTask.id} name={newName} editTask={mockedEditTask} />)
+                
+        const editBtn = getByText(/Edit/i)
+        fireEvent.click(editBtn);
+
+        const input = getByTestId('new-name')
+        const saveBtn = getByText(/Save/i)        
+
+        fireEvent.change(input, {target: {value: newName}})
+        fireEvent.click(saveBtn);
+
+        expect(mockedEditTask).toBeCalledTimes(1);
+        expect(mockedEditTask).toBeCalledWith(mockedTask.id, newName);        
       })   
 })
