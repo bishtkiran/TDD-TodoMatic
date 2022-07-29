@@ -12,8 +12,8 @@ describe("Basic rendering of a Todo task", () => {
         const completed = true;
         const name = "Java";
         const id = "todo-0";
-        const getById = render(<Todo name={name} completed={completed} id={id}/>);
-        const firstTask = getById.container.querySelector('#todo-0');
+        const todoTask = render(<Todo name={name} completed={completed} id={id}/>);
+        const firstTask = todoTask.container.querySelector('#todo-0');
         expect(firstTask).toBeInTheDocument();
         expect(firstTask).toBeChecked();
     });
@@ -22,20 +22,20 @@ describe("Basic rendering of a Todo task", () => {
         const completed = true;
         const name = "Java";
         const id = "todo-0";
-        const getByClass = render(<Todo name={name} completed={completed} id={id} />);
-        const labelText = getByClass.container.querySelector('.todo-label');
+        const todoTask = render(<Todo name={name} completed={completed} id={id} />);
+        const labelText = todoTask.container.querySelector('.todo-label');
         expect(labelText).toBeInTheDocument();
     });
 
     it("Should render Edit button for task", () => {
-        const getByClass = render(<Todo />);
-        const editBtn = getByClass.container.querySelector('.btn')
+        const todoTask = render(<Todo />);
+        const editBtn = todoTask.container.querySelector('.btn')
         expect(editBtn).toBeInTheDocument();
     });
 
     it("Should render Delete button for task", () => {
-        const getByClass = render(<Todo />);
-        const deleteBtn = getByClass.container.querySelector('.btn__danger')
+        const todoTask = render(<Todo />);
+        const deleteBtn = todoTask.container.querySelector('.btn__danger')
         expect(deleteBtn).toBeInTheDocument();
     });
 
@@ -52,29 +52,26 @@ describe("Basic rendering of a Todo task", () => {
 
       it("Should delete a todo task on click of delete button", () => {
         const mockedDeleteTask = jest.fn();
-        const {getByText, debug} = render(<Todo id={mockedTask.id} deleteTask={mockedDeleteTask} />);
-        const deleteBtn = getByText(/Delete/i);
-        debug();
+        const {getByText} = render(<Todo id={mockedTask.id} deleteTask={mockedDeleteTask} />);
+        const deleteBtn = getByText(/Delete/i);        
 
         fireEvent.click(deleteBtn);
 
         expect(mockedDeleteTask).toBeCalledTimes(1);  
         expect(mockedDeleteTask).toBeCalledWith(mockedTask.id);      
-      })
-
-      it("Should set editing template to true on click of edit Button", () => {
-        const mockedSetEditing = jest.fn();
-        const {getByText,debug} = render(<Todo />)        
-        const editBtn = getByText(/Edit/i);
-        fireEvent.click(editBtn);
-        debug();
-
-        expect(mockedSetEditing).toBeTruthy();       
-               
-      })
+      })     
       
-    
-     
-
-   
+      it("Should show elements of editing template on click of edit button", ()=>{
+        const {getByText, getByTestId} = render(<Todo mockedTask={mockedTask} />)
+                
+        const editBtn = getByText(/Edit/i)
+        fireEvent.click(editBtn);
+        const input = getByTestId('new-name')
+        const saveBtn = getByText(/Save/i)
+        const cancelBtn = getByText(/Cancel/i)
+        
+        expect(input).toBeInTheDocument();
+        expect(saveBtn).toBeInTheDocument();
+        expect(cancelBtn).toBeInTheDocument();
+      })   
 })

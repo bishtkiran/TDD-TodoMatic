@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,{ useState } from "react";
 
 function Todo(props) {
     const [isEditing, setEditing] = useState(false);
@@ -19,7 +19,7 @@ function Todo(props) {
             <label className="todo-label" htmlFor={props.id}>
               New name for {props.name}
             </label>
-            <input id={props.id} className="todo-text" type="text" value={newName} onChange={handleChange}/>
+            <input data-testid="new-name" id={props.id} className="todo-text"  type="text" value={newName} onChange={handleChange}/>
           </div>
           <div className="btn-group">
             <button type="button" className="btn todo-cancel" onClick={() => setEditing(false)}>
@@ -37,7 +37,7 @@ function Todo(props) {
         <div className="stack-small">
           <div className="c-cb">
               <input
-                id={props.id}
+                id={props.id}               
                 type="checkbox"
                 defaultChecked={props.completed}
                 onChange={() => props.toggleTaskCompleted(props.id)}
@@ -49,7 +49,7 @@ function Todo(props) {
             <div className="btn-group">
               <button type="button" className="btn" onClick={() => setEditing(true)}>
                 Edit <span className="visually-hidden">{props.name}</span>
-              </button>
+              </button>          
               <button
                 type="button"
                 className="btn btn__danger"
